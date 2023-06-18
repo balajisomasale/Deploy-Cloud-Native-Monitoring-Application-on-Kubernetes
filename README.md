@@ -2,7 +2,13 @@
 
 Source: https://www.youtube.com/watch?v=kBWCsHEcWnc&t=140s&ab_channel=CloudChamp
 
+Objective: How to create Monitoring Application in Python using Flask and psutil on Kubernetes
+
+- `Flask` is the Python web framework
+-  `psutil` (process and system utilities) is a cross-platform library for retrieving information on running processes and system utilization (CPU, memory, disks, network, sensors) in Python. It is useful mainly for system monitoring, profiling and limiting process resources and management of running processes
+
 DevOps Project from scratch
+
 
 ![image](https://github.com/balajisomasale/Deploy-Cloud-Native-Monitoring-Application-on-Kubernetes/assets/35003840/68c0f11a-c59b-4006-b258-7ae98e22db49)
 
