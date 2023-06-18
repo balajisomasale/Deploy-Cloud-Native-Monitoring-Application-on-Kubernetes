@@ -58,6 +58,63 @@ Adding few css styling to the UI :
 ### 3) Containerize the App by creating Dockerfile:
 
 - create `Dockerfile` which will create docker `image` and then will give the `container`
+- run the command to create an image: `docker build -t my-flask-app .`
 
   ![image](https://github.com/balajisomasale/Deploy-Cloud-Native-Monitoring-Application-on-Kubernetes/assets/35003840/62b3bbda-0452-4cff-b030-914dbd0e5f52)
 
+![image](https://github.com/balajisomasale/Deploy-Cloud-Native-Monitoring-Application-on-Kubernetes/assets/35003840/5957f927-e0d2-4987-903c-eeab840afe24)
+
+- Creating the Docker container by using : `docker run -p 5000:5000 edc7297738d9` :: `docker run image_id`
+
+  ![image](https://github.com/balajisomasale/Deploy-Cloud-Native-Monitoring-Application-on-Kubernetes/assets/35003840/3937128f-e8a4-4dce-9938-18400f7ead66)
+  
+- Docker desktop :
+
+  ![image](https://github.com/balajisomasale/Deploy-Cloud-Native-Monitoring-Application-on-Kubernetes/assets/35003840/f08fa8ab-6e3f-465d-8cb6-caa32102da91)
+
+
+--------------------------------
+
+### 4) Create ECR(Amazon Elastic Container Registry) repository using Python Boto3 and pushing Docker Image to ECR
+
+Amazon Elastic Container Registry : 
+
+![image](https://github.com/balajisomasale/Deploy-Cloud-Native-Monitoring-Application-on-Kubernetes/assets/35003840/94b72b69-6734-44e6-bb2a-be1b333ff7f3)
+
+- we can directly `create repository` from UI in AWS management console but it will be much better if we can directly use this by using `AWS BOTO3 module`
+  https://boto3.amazonaws.com/v1/documentation/api/latest/index.html
+-  Documentation for ECR module : https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ecr.html
+-  For creating repo : https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ecr/client/create_repository.html
+
+Runnning the BOTO3.py file : 
+
+- After writing the script, we can use : `pip3 install boto3` to install and then run the python file.
+
+  ![image](https://github.com/balajisomasale/Deploy-Cloud-Native-Monitoring-Application-on-Kubernetes/assets/35003840/cc19c77f-532f-47e7-8b69-e323ac5a9cc8)
+
+- ECR repo is created from boto3 python script :
+
+  ![image](https://github.com/balajisomasale/Deploy-Cloud-Native-Monitoring-Application-on-Kubernetes/assets/35003840/fa78456b-8aaf-471f-a313-7b27359f386f)
+
+- use `push commands` tab in the ECR UI for this repo:
+
+   ![image](https://github.com/balajisomasale/Deploy-Cloud-Native-Monitoring-Application-on-Kubernetes/assets/35003840/e192a270-8232-4595-95c4-c0a79f0856e6)
+
+- After running the `suggested push commands`; we can see the `docker image` inside the ECR repo :
+
+  ![image](https://github.com/balajisomasale/Deploy-Cloud-Native-Monitoring-Application-on-Kubernetes/assets/35003840/f562f115-6d8d-4aa6-ada1-22e8e58b9dda)
+
+-----------------------------------------------------------------
+
+## Create EKS (Elastic Kubernetes Service) cluster and Nodegroups
+
+![image](https://github.com/balajisomasale/Deploy-Cloud-Native-Monitoring-Application-on-Kubernetes/assets/35003840/c7768d20-a13d-466b-b7ef-2d8136380a57)
+
+Cluster is created : 
+
+![image](https://github.com/balajisomasale/Deploy-Cloud-Native-Monitoring-Application-on-Kubernetes/assets/35003840/2fa957a7-6be9-4f3c-9db6-d1f0dd7b88ea)
+
+Creating a Node group from EKS > compute : 
+
+
+-----------------------------------------------------------------
