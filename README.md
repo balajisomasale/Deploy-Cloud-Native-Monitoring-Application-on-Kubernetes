@@ -116,5 +116,10 @@ Cluster is created :
 
 Creating a Node group from EKS > compute : 
 
+stuck at creating a Node group where roles are not getting created even after specified and cannot see that role in the drop down 
+
+https://docs.aws.amazon.com/eks/latest/userguide/create-node-role.html
+
+
 
 -----------------------------------------------------------------
