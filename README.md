@@ -81,13 +81,17 @@ Amazon Elastic Container Registry :
 
 ![image](https://github.com/balajisomasale/Deploy-Cloud-Native-Monitoring-Application-on-Kubernetes/assets/35003840/94b72b69-6734-44e6-bb2a-be1b333ff7f3)
 
+```
 - we can directly `create repository` from UI in AWS management console but it will be much better if we can directly use this by using `AWS BOTO3 module`
   https://boto3.amazonaws.com/v1/documentation/api/latest/index.html
 -  Documentation for ECR module : https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ecr.html
 -  For creating repo : https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ecr/client/create_repository.html
 
-Runnning the BOTO3.py file : 
+```
 
+Running the BOTO3.py file : 
+
+```
 - After writing the script, we can use : `pip3 install boto3` to install and then run the python file.
 
   ![image](https://github.com/balajisomasale/Deploy-Cloud-Native-Monitoring-Application-on-Kubernetes/assets/35003840/cc19c77f-532f-47e7-8b69-e323ac5a9cc8)
@@ -103,6 +107,7 @@ Runnning the BOTO3.py file :
 - After running the `suggested push commands`; we can see the `docker image` inside the ECR repo :
 
   ![image](https://github.com/balajisomasale/Deploy-Cloud-Native-Monitoring-Application-on-Kubernetes/assets/35003840/f562f115-6d8d-4aa6-ada1-22e8e58b9dda)
+```
 
 -----------------------------------------------------------------
 
@@ -121,5 +126,89 @@ stuck at creating a Node group where roles are not getting created even after sp
 https://docs.aws.amazon.com/eks/latest/userguide/create-node-role.html
 
 
-
 -----------------------------------------------------------------
+
+After configuring nodes in EKS; we will move to
+
+ ## Kubernetes Deployment from vscode.
+
+```
+- To use `Kubernetes` with Python code, we need `Kubernetes client` to deploy and manage services.
+- Before that, we need to install `pip3 install Kubernetes`
+- Run the `eks.py` file: `python eks.py` 
+
+
+### Create deployment and service
+
+```jsx
+from kubernetes import client, config
+
+# Load Kubernetes configuration
+config.load_kube_config()
+
+# Create a Kubernetes API client
+api_client = client.ApiClient()
+
+# Define the deployment
+deployment = client.V1Deployment(
+    metadata=client.V1ObjectMeta(name="my-flask-app"),
+    spec=client.V1DeploymentSpec(
+        replicas=1,
+        selector=client.V1LabelSelector(
+            match_labels={"app": "my-flask-app"}
+        ),
+        template=client.V1PodTemplateSpec(
+            metadata=client.V1ObjectMeta(
+                labels={"app": "my-flask-app"}
+            ),
+            spec=client.V1PodSpec(
+                containers=[
+                    client.V1Container(
+                        name="my-flask-container",
+                        image="568373317874.dkr.ecr.us-east-1.amazonaws.com/my-cloud-native-repo:latest",
+                        ports=[client.V1ContainerPort(container_port=5000)]
+                    )
+                ]
+            )
+        )
+    )
+)
+
+# Create the deployment
+api_instance = client.AppsV1Api(api_client)
+api_instance.create_namespaced_deployment(
+    namespace="default",
+    body=deployment
+)
+
+# Define the service
+service = client.V1Service(
+    metadata=client.V1ObjectMeta(name="my-flask-service"),
+    spec=client.V1ServiceSpec(
+        selector={"app": "my-flask-app"},
+        ports=[client.V1ServicePort(port=5000)]
+    )
+)
+
+# Create the service
+api_instance = client.CoreV1Api(api_client)
+api_instance.create_namespaced_service(
+    namespace="default",
+    body=service
+)
+```
+
+make sure to edit the name of the image on line 25 with your image Uri.
+
+- Once you run this file by running “python3 eks.py” deployment and service will be created.
+- Check by running following commands:
+
+```jsx
+kubectl get deployment -n default (check deployments)
+kubectl get service -n default (check service)
+kubectl get pods -n default (to check the pods)
+```
+
+Once your pod is up and running, run the port-forward to expose the service
+
+kubectl port-forward service/<service_name> 5000:5000
