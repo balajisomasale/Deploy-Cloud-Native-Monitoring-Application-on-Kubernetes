@@ -91,7 +91,7 @@ Amazon Elastic Container Registry :
 
 Running the BOTO3.py file : 
 
-```
+
 - After writing the script, we can use : `pip3 install boto3` to install and then run the python file.
 
   ![image](https://github.com/balajisomasale/Deploy-Cloud-Native-Monitoring-Application-on-Kubernetes/assets/35003840/cc19c77f-532f-47e7-8b69-e323ac5a9cc8)
@@ -107,7 +107,7 @@ Running the BOTO3.py file :
 - After running the `suggested push commands`; we can see the `docker image` inside the ECR repo :
 
   ![image](https://github.com/balajisomasale/Deploy-Cloud-Native-Monitoring-Application-on-Kubernetes/assets/35003840/f562f115-6d8d-4aa6-ada1-22e8e58b9dda)
-```
+
 
 -----------------------------------------------------------------
 
