@@ -1,6 +1,5 @@
 # Deploy-Cloud-Native-Monitoring-Application-on-Kubernetes
 
-Source: https://www.youtube.com/watch?v=kBWCsHEcWnc&t=140s&ab_channel=CloudChamp
 
 Objective: How to create Monitoring Application in Python using Flask and psutil on Kubernetes
 
